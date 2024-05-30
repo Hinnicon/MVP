@@ -1,0 +1,456 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แผนที่ท่องเที่ยว </title>
+    <!--1 link leaflet css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+     <!--2 link leaflet JS -->
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+ crossorigin=""></script>
+ <!--3 link css template -->
+ <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+ <script src="moo2.js"></script> 
+ <!--4 style map id -->
+ <style>
+    #mapid{
+        height: 800px;
+
+    }
+ </style>
+</head>
+<body background="photo-1500964757637-c85e8a162699.avif">
+<!-- 5 แบ่งหน้าจอ -->
+<!-- 5. แบ่งหน้าจอ -->
+<div class="w3-row">
+    <!-- 1. ส่วนซ้ายแสดงแผนที่ -->
+    <div id="mapid" class="w3-half"></div>
+    <!-- ส่วนขวาแสดง ข้อมูลตาราง -->
+    <div id="content" class="w3-half">
+        <table class="w3-table w3-striped">
+            <!-- <tr>
+                <th>ชื่อแหล่งท่องเที่ยว</th>
+                <th>ประเภท</th>
+                <th>ระดับ</th>
+            </tr>
+            <tr>
+                <td>น้ำตกสาริกา</td>
+                <td>ธรรมชาติ</td>
+                <td>A</td>
+            </tr>
+        </table>
+    </div> -->
+    <img src="C:\mind_wed_gg\we are wed\WE_ARE_wed_2019.tif">
+
+<script>
+//6. เรียกแผนที่
+var map = L.map("mapid").setView([13.206365520687559, 99.97983900093143],14);
+//7 เรียกbased map
+//based map1
+var OSM = L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {
+maxZoom: 18,
+attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors'
+}).addTo(map);
+var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	maxZoom: 17,
+	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+}).addTo(map);
+var CyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+	maxZoom: 20,
+	attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+var wmsLayer = L. tileLayer.wms('http://localhost:8080/geoserver/T_T/wms?' , {
+    layers: 'T_T:M7',
+    format: 'image/png',
+    transparent: true,
+    attribution: "© OpenTopoMap (CC-BY-SA)"
+});
+var wmsLayer_1 = L. tileLayer.wms('http://localhost:8080/geoserver/T_T/wms?' , {
+    layers: '	T_T:VAT',
+    format: 'image/png',
+    transparent: true,
+    attribution: "© OpenTopoMap (CC-BY-SA)"
+  })
+var wmsLayer_2 = L. tileLayer.wms('http://localhost:8080/geoserver/T_T/wms?' , {
+    layers: '	T_T:หมู่4',
+    format: 'image/png',
+    transparent: true,
+    attribution: "© OpenTopoMap (CC-BY-SA)"
+});
+var wmsLayer_3 = L. tileLayer.wms('http://localhost:8080/geoserver/T_T/wms?' , {
+    layers: '	T_T:หมู่บ้านที่2_ตำบลบ้านแหลม',
+    format: 'image/png',
+    transparent: true,
+    attribution: "© OpenTopoMap (CC-BY-SA)"
+});
+
+var wmsLayer_4 = L. tileLayer.wms('http://localhost:8080/geoserver/T_T/wms?' , {
+    layers: '		T_T:หมู่อะไร',
+    format: 'image/png',
+    transparent: true,
+    attribution:"© OpenTopoMap (CC-BY-SA)"
+});
+
+var wmsLayer_5 = L. tileLayer.wms('http://localhost:8080/geoserver/T_T/wms?' , {
+    layers: '	T_T:one',
+    format: 'image/png',
+    transparent: true,
+    attribution:"© OpenTopoMap (CC-BY-SA)"
+});
+
+var wmsLayer_5 = L. tileLayer.wms('http://localhost:8080/geoserver/T_T/wms?' , {
+    layers: '	T_T:one',
+    format: 'image/png',
+    transparent: true,
+    attribution:"© OpenTopoMap (CC-BY-SA)"
+});
+
+var wmsLayer_6 = L. tileLayer.wms('http://localhost:8080/geoserver/T_T/wms?' , {
+    layers: '	T_T:two',
+    format: 'image/png',
+    transparent: true,
+    attribution:"© OpenTopoMap (CC-BY-SA)"
+});
+
+
+var baseLayers = {
+        "OSM" : OSM,
+        "OpenTopoMap" : OpenTopoMap,
+        "CyclOSM" : CyclOSM
+        
+    };
+    var overlaymaps = {
+    "พื้นหมู่7ตามขอบเขตผู้ใหญ่บ้าน": wmsLayer,
+    "พื้นที่หมู่7ที่อาจาย์ให้ข้อมูล":wmsLayer_1,
+    "หมู่4":wmsLayer_2,
+    "หมู่2":wmsLayer_3,
+    "พื้นที่เพิ่มเติม":wmsLayer_4,
+    "เส้นทางจักรยาน":wmsLayer_5,
+    "เส้นทางนาเกลือ":wmsLayer_6,
+  
+};
+
+
+
+L.control.layers(baseLayers, overlaymaps).addTo(map);
+
+
+
+//8 สร้างข้อมูล
+var tourpoint = 
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "บ้านหอยต้ม",
+        "type": "landmark",
+        "ความนิยม": 3
+      },
+      "geometry": {
+        "coordinates": [
+          99.97808895235016,
+          13.208967657753576
+        ],
+        "type": "Point"
+      },
+      "id": 0
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "บ้านรังนก",
+        "type": "landmark",
+        "ความนิยม": 4
+      },
+      "geometry": {
+        "coordinates": [
+          99.97701692829787,
+          13.208794785083953
+        ],
+        "type": "Point"
+      },
+      "id": 1
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "ศาลเจ้าโรงเบ็ด (กวนอู)",
+        "type": "landmark",
+        "ความนิยม": 3
+      },
+      "geometry": {
+        "coordinates": [
+          99.97855200745647,
+          13.21005451567791
+        ],
+        "type": "Point"
+      },
+      "id": 2
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "แพหอย",
+        "type": "landmark",
+        "ความนิยม": 3
+      },
+      "geometry": {
+        "coordinates": [
+          99.98090631532546,
+          13.21364897550474
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "วัดต้นสน",
+        "type": "landmark",
+        "ความนิยม": 5
+      },
+      "geometry": {
+        "coordinates": [
+          99.98228889458068,
+          13.21198754017513
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "ก๋วยเตี๋ยวเจ้แขก",
+        "type": "จุดพัก",
+        "ความนิยม": 4
+      },
+      "geometry": {
+        "coordinates": [
+          99.98162686346711,
+          13.210627569980105
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "ศาลเจ้าช่งเจ่งอ้วงเอี๊ย",
+        "type": "landmark",
+        "ความนิยม": 4
+      },
+      "geometry": {
+        "coordinates": [
+          99.98073803612766,
+          13.209990272326252
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "คุณตุ๋ยกาแฟสด เพื่อสุขภาพ",
+        "type": "จุดพัก",
+        "ความนิยม": 5
+      },
+      "geometry": {
+        "coordinates": [
+          99.98056095585474,
+          13.20949980212285
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "ครัวบ้านต้นไม้",
+        "type": "จุดพัก",
+        "ความนิยม": 4
+      },
+      "geometry": {
+        "coordinates": [
+          99.97965322953024,
+          13.203302517430515
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "วัดศรีษะคาม",
+        "type": "landmark",
+        "ความนิยม": 4
+      },
+      "geometry": {
+        "coordinates": [
+          99.98244814700115,
+          13.201598062586811
+        ],
+        "type": "Point"
+      },
+      "id": 11
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "วัดในกลาง",
+        "type": "landmark",
+        "ความนิยม": 5
+      },
+      "geometry": {
+        "coordinates": [
+          99.97736937326783,
+          13.20335543636078
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "วัดลักษณาราม",
+        "type": "landmark",
+        "ความนิยม": 4
+      },
+      "geometry": {
+        "coordinates": [
+          99.97697093416986,
+          13.21052365741562
+        ],
+        "type": "Point"
+      },
+      "id": 14
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "เรือนนา",
+        "type": "landmark",
+        "ความนิยม": 3
+      },
+      "geometry": {
+        "coordinates": [
+          99.97641954895732,
+          13.219581309303663
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "ยุ้งนา",
+        "type": "landmark",
+        "ความนิยม": 4
+      },
+      "geometry": {
+        "coordinates": [
+          99.97054299999996,
+          13.228971230157697
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Oasis_cafe",
+        "type": "จุดพัก",
+        "ความนิยม": 5
+      },
+      "geometry": {
+        "coordinates": [
+        99.965558, 
+        13.236747
+        ],
+        "type": "Point"
+      }
+    }
+  ]
+}
+//9 กำหนดการแสดงผล add marker and popup
+
+var tourLayer = L.geoJSON(tourpoint, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng).bindPopup(feature.properties.Name);
+    },
+    onEachFeature: function (feature, layer) {
+        layer.on("mouseover", function () {
+            document
+                .getElementById(feature.properties.name)
+                .classList.add("w3");
+        });
+ 
+        layer.on("mouseout", function () {
+            document
+                .getElementById(feature.properties.name)
+                .classList.remove("w3");
+        });
+    },
+});
+ 
+ 
+var tourLayer = L.geoJSON(tourpoint, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng).bindPopup(feature.properties.Name);
+    },
+    onEachFeature: function (feature, layer) {
+        layer.on("mouseover", function () {
+            document
+                .getElementById(feature.properties.name)
+                .classList.add("w3");
+        });
+ 
+        layer.on("mouseout", function () {
+            document
+                .getElementById(feature.properties.name)
+                .classList.remove("w3");
+        });
+    },
+}).addTo(map);
+// 10 . เชื่อมโยงข้อมูลกับตาราง
+var cont = "";
+cont += "<table class='w3-table w3-striped'>";
+cont += "<tr>";
+cont += "<th>ชื่อสถานที่</th>";
+cont += "<th>ประเภท</th>";
+cont += "<th>ความนิยม</th>";
+cont += "</tr>";
+for (let i in tourpoint.features) {
+    cont += "<tr id=" + tourpoint.features[i].properties.name + ">";
+    cont += "<td>" + tourpoint.features[i].properties.Name + "</td>";
+    cont += "<td>" + tourpoint.features[i].properties.type  + "</td>";
+    cont += "<td>" + tourpoint.features[i].properties.ความนิยม + "</td>";
+    cont += "</tr>";
+}
+cont += "</table>";
+console.log(cont);
+document.getElementById("content").innerHTML = cont;
+
+//  add layer control
+// var overlays = {"moo2":moo2}
+// L.control.layers(baseLayers,overlaymaps).addTo(map);
+</script>
+
+
+
+
+</body>
+<!-- <h5><a href="https://hinnicon.github.io/TAK_FIN/"style="text-decoration: none"><p style="color: rgb(0, 0, 255);"><button>Tak🍌</button></p></a></h5>
+<h5><a href="https://hinnicon.github.io/KCB_FIN/"style="text-decoration: none"><p style="color:rgb(0, 0, 255);"><button>Kanchanaburi🚈</button></p></a></h5>
+<h5><a href="https://hinnicon.github.io/NCB_FIN/"style="text-decoration: none"><p style="color: rgb(0, 0, 255);"><button>Ratchaburi🍍</button></p></a></h5>
+<h5><a href="https://hinnicon.github.io/Petchaburi_FIN/"style="text-decoration: none"><p style="color: rgb(0, 0, 255);"><button>petchaburi🌴</button></p></a></h5>
+<h5><a href="https://hinnicon.github.io/PKK_FIN/"style="text-decoration: none"><p style="color: rgb(0, 0, 255);"><button>Prachuap Khiri Khan🦑</button></p></a></h5>
+<center><iframe width="560" height="275" src="https://www.youtube.com/embed/e18yCYtr2M4?si=W2SQdW0vNX6wEV_f" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><br></center>
+var map = L.map(mapDiv, mapOptions);
+var wmsLayer = L.tileLayer.wms('http://ows.mundialis.de/services/service?', wmsOptions).addTo(map); -->
+</html>
